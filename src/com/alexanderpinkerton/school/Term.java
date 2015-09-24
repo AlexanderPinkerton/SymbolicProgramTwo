@@ -116,11 +116,11 @@ public class Term {
         Term result=null;
 
         if(t1.getVariable().equals(divisor.getVariable()) && !t1.isConstant() && !divisor.isConstant()){
-            if(t1.getExponent() - divisor.getExponent() >= 0){
+            //if(t1.getExponent() - divisor.getExponent() >= 0){
                 result =  new Term(t1.getCoefficient()/divisor.getCoefficient(), t1.getVariable() ,t1.getExponent() - divisor.getExponent());
-            }else{
-                result = new Term(0,"Y",0);
-            }
+           // }else{
+               // result = new Term(0,"x",0);
+            //}
         }else if(t1.isConstant() && !divisor.isConstant()){
             result = new Term(t1.getCoefficient()/divisor.getCoefficient(), divisor.getVariable(),divisor.getExponent());
         }else if(!t1.isConstant() && divisor.isConstant()){

@@ -32,7 +32,28 @@ public class Main {
 //                new Term(28,"x",1),
 //                new Term(1,"x",2)));
 
-       // Polynomial.longDivision(polynomial, divisor);
+
+      /*  Polynomial p1 = new Polynomial(
+                new Term(1,"x",2),
+                new Term(3,"x",1),
+                new Term(2,"x",0));
+
+        Polynomial p2 = new Polynomial(
+                new Term(1,"x",1),
+                new Term(1,"x",0));
+
+       Polynomial.longDivision(p1, p2);*/
+
+        /*Polynomial p1 = new Polynomial(
+                new Term(1,"x",3),
+                new Term(1,"x",2),
+                new Term(-3,"x",1),
+                new Term(-3,"x",0));
+
+        Polynomial p2 = new Polynomial(
+                new Term(1,"x",2),
+                new Term(3,"x",1),
+                new Term(2,"x",0));*/
 
         Polynomial p1 = new Polynomial(
                 new Term(1,"x",2),
@@ -44,6 +65,7 @@ public class Main {
                 new Term(-5,"x",1),
                 new Term(-6,"x",0));
 
+        //Polynomial.longDivision(p1, p2);
         Polynomial.GCD(p1,p2);
 
 

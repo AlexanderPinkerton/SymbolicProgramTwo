@@ -132,7 +132,8 @@ public class Polynomial {
                 result.addTerm(t1);
             }
         }
-
+        //0 will result in no terms being returned in the polynomial.
+        //System.out.println(result.terms.length);
         return result;
     }
 
@@ -168,6 +169,8 @@ public class Polynomial {
 
     public static Polynomial[] longDivision(Polynomial polynomial, Polynomial divisor){
 
+        System.out.println("DIVIDING: " + polynomial + "  BY  " + divisor);
+
         boolean complete = false;
 
         Term quotientPart;
@@ -189,12 +192,24 @@ public class Polynomial {
 
             quotientPart = Term.divide(polynomial.getTerms()[0], divisor.getTerms()[0]);
             //System.out.println(quotientPart);
-            if(!quotientPart.getVariable().equals("Y")){
+            if(quotientPart.getExponent() >= 0 && quotientPart.getCoefficient() != 0){
                 quotient.addTerm(quotientPart);
                 substep = Polynomial.subtract(polynomial, Polynomial.multiply(divisor, quotient.getTerm(step)));
                 polynomial = substep;
 //                System.out.println("SUBSTEP:  " + substep);
 //                System.out.println("QUOTIENT:  " + quotient);
+
+                if(substep.getTerms().length == 0){
+                    //Stop if subtraction equals 0
+                    substep.addTerm(new Term(0,"x",0));
+                    complete = true;
+                }
+                if(quotientPart.getExponent() == 0){
+                    //Stop when reaching a coefficient
+                    complete = true;
+                }
+
+
             }else{complete = true;}
 
             step++;
@@ -207,25 +222,37 @@ public class Polynomial {
         result[0] = quotient;
         //Remainder
         result[1] = substep;
-        //System.out.println("QUOTIENT: " + quotient + "\tREMAINDER\t" + substep+ " over " + divisor);
+        System.out.println("QUOTIENT: " + quotient + "\tREMAINDER\t" + substep+ " over " + divisor);
         return result;
     }
 
 
     public static Polynomial GCD(Polynomial p1, Polynomial p2){
         Polynomial result = new Polynomial();
+        boolean done = false;
+        Polynomial poly = p1;
+        Polynomial divisor = p2;
+        Polynomial[] divResults;
 
-        Polynomial[] divResults = Polynomial.longDivision(p1, p2);
-        System.out.println(Arrays.toString(divResults));
-        divResults = Polynomial.longDivision(p2, divResults[1]);
-        System.out.println(Arrays.toString(divResults));
+        while(!done){
 
+            divResults = Polynomial.longDivision(poly, divisor);
+            System.out.println(Arrays.toString(divResults));
 
+            poly = divisor;
+            divisor = divResults[1];
 
+            if(divResults[1].getTerms() != null){
+                System.out.println("GCD IS " + divisor);
+                done = true;
+            }
 
+            if(divResults[1].getTerm(0).getCoefficient() == 0){
+                System.out.println("GCD IS " + poly);
+                done = true;
+            }
 
-
-
+        }
         return result;
     }
 
